@@ -109,7 +109,7 @@ function validatecartForm()
 	return true;
 }
 
-function onItemSaveComplete(response, status)
+function oncartSaveComplete(response, status)
 	{ 
 	if (status == "success") 
 	 { 
@@ -133,11 +133,11 @@ function onItemSaveComplete(response, status)
 	 $("#alertError").text("Unknown error while saving.."); 
 	 $("#alertError").show(); 
 	 } 
-	 $("#hidItemIDSave").val(""); 
-	 $("#formItem")[0].reset(); 
+	 $("#hidprodnumSave").val(""); 
+	 $("#formcart")[0].reset(); 
 }
 
-function onItemDeleteComplete(response, status)
+function oncartDeleteComplete(response, status)
 	{ 
 	if (status == "success") 
 	 { 
