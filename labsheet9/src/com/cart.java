@@ -21,37 +21,40 @@ package com;
 	 //Provide the correct details: DBServer/DBName, username, password
 	 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/y3proj","root", "");
 	 }
-	 catch (Exception e)
-	 {e.printStackTrace();}
-	 return con;
+	 	catch (Exception e)
+	 		{e.printStackTrace();}
+	 	return con;
 	 }
+	
 	public String insertCart( String prodid, String prodname, String prodqty, String prodprice)
 	 {
-	 String output = "";
-	 try
-	 {
-	 Connection con = connect();
-	 if (con == null)
-	 {return "Error while connecting to the database for inserting."; }
+	String output = "";
+	try
+	{
+	Connection con = connect();
+	if (con == null)
+	{return "Error while connecting to the database for inserting."; }
+				
 	 // create a prepared statement
 	 String query = " insert into shoppingcart(`prodnum`,`prodid`,`prodname`,`prodqty`,`prodprice`)" + " values (?,?, ?, ?, ?)";
 	 PreparedStatement preparedStmt = con.prepareStatement(query);
-	 // binding values
-	 preparedStmt.setInt(1, 0);
-	 preparedStmt.setString(2, prodid);
-	 preparedStmt.setString(3, prodname);
-	 preparedStmt.setString(4, prodqty);
-	 preparedStmt.setString(5, prodprice);
-	// execute the statement
-	 preparedStmt.execute();
-	 con.close();
-	 output = "Inserted successfully";
-	 }
-	 catch (Exception e)
-	 {
-	 output = "Error while inserting into the cart.";
-	 System.err.println(e.getMessage());
-	 }
+			 // binding values
+			 preparedStmt.setInt(1, 0);
+			 preparedStmt.setString(2, prodid);
+			 preparedStmt.setString(3, prodname);
+			 preparedStmt.setString(4, prodqty);
+			 preparedStmt.setString(5, prodprice);
+			// execute the statement
+			 preparedStmt.execute();
+			 con.close();
+			 output = "Inserted successfully";
+			}
+		
+			catch (Exception e)
+			{
+					output = "Error while inserting into the cart.";
+					System.err.println(e.getMessage());
+			}
 	 return output;
 	 }
 	public String readCart()
