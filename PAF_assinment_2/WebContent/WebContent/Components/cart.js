@@ -17,7 +17,7 @@ $(document).ready(function()
 		$("#alertError").hide();
 		
 		// Form validation-------------------
-	    var status = validateItemForm();
+	    var status = validatecartForm();
 		if (status != true)
 		{
 		$("#alertError").text(status);
@@ -26,16 +26,16 @@ $(document).ready(function()
 		}
 		
 		 // If valid------------------------
-		 var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT"; 
+		 var type = ($("#hidprodnumSave").val() == "") ? "POST" : "PUT"; 
 		 $.ajax( 
 		 { 
-		 url : "ItemAPI", 
+		 url : "cartAPI", 
 		 type : type, 
-		 data : $("#formItem").serialize(), 
+		 data : $("#formcart").serialize(), 
 		 dataType : "text", 
 		 complete : function(response, status) 
 		 { 
-		 onItemSaveComplete(response.responseText, status); 
+		 oncartSaveComplete(response.responseText, status); 
 		 } 
  	}); 
 });
@@ -43,11 +43,11 @@ $(document).ready(function()
 // UPDATE==========================================
 	$(document).on("click", ".btnUpdate", function(event)
 	{
-	$("#hidItemIDSave").val($(this).data("itemid"));
-	$("#itemCode").val($(this).closest("tr").find('td:eq(0)').text());
-	$("#itemName").val($(this).closest("tr").find('td:eq(1)').text());
-	$("#itemPrice").val($(this).closest("tr").find('td:eq(2)').text());
-	$("#itemDesc").val($(this).closest("tr").find('td:eq(3)').text());
+	$("#hidprodnumSave").val($(this).data("prodnum"));
+	$("#proid").val($(this).closest("tr").find('td:eq(0)').text());
+	$("#prodname").val($(this).closest("tr").find('td:eq(1)').text());
+	$("#prodqty").val($(this).closest("tr").find('td:eq(2)').text());
+	$("#prodprice").val($(this).closest("tr").find('td:eq(3)').text());
 	});
 	
 // DELETE===========================================
@@ -55,52 +55,61 @@ $(document).ready(function()
 	{ 
 	 $.ajax( 
 	 { 
-	 url : "ItemAPI", 
+	 url : "cartAPI", 
 	 type : "DELETE", 
-	 data : "itemID=" + $(this).data("itemid"),
+	 data : "prodnum=" + $(this).data("prodnum"),
 	 dataType : "text", 
 	 complete : function(response, status) 
 	 { 
-	 onItemDeleteComplete(response.responseText, status); 
+	 oncartDeleteComplete(response.responseText, status); 
 	 } 
 	 }); 
 });
 // CLIENT-MODEL================================================================
-function validateItemForm()
+function validatecartForm()
 	{
 	// CODE
-	if ($("#itemCode").val().trim() == "")
+	if ($("#prodid").val().trim() == "")
 	{
-	return "Insert Item Code.";
+	return "Insert product id.";
 	}
 	// NAME
-	if ($("#itemName").val().trim() == "")
+	if ($("#prodname").val().trim() == "")
 	{
-	return "Insert Item Name.";
+	return "Insert prod name.";
 	}
-
+	// qty
+	if ($("#prodqty").val().trim() == "")
+	{
+	return "Insert product quantity.";
+	}
+	// price
+	if ($("#prodprice").val().trim() == "")
+	{
+	return "Insert product price.";
+	}
 	// PRICE-------------------------------
-	if ($("#itemPrice").val().trim() == "")
-	{
-	return "Insert Item Price.";
-	}
+	//if ($("#itemPrice").val().trim() == "")
+	//{
+	//return "Insert Item Price.";
+	//}
 	// is numerical value
-	var tmpPrice = $("#itemPrice").val().trim();
-	if (!$.isNumeric(tmpPrice))
-	{
-	return "Insert a numerical value for Item Price.";
-	}
+	//var tmpPrice = $("#itemPrice").val().trim();
+	//if (!$.isNumeric(tmpPrice))
+	//{
+	//return "Insert a numerical value for Item Price.";
+	//}
 	// convert to decimal price
-	$("#itemPrice").val(parseFloat(tmpPrice).toFixed(2));
+	//$("#itemPrice").val(parseFloat(tmpPrice).toFixed(2));
 	// DESCRIPTION------------------------
-	if ($("#itemDesc").val().trim() == "")
-	{
-	return "Insert Item Description.";
-	}
+	//if ($("#itemDesc").val().trim() == "")
+	//{
+	//return "Insert Item Description.";
+	//}
 	return true;
 }
 
-function onItemSaveComplete(response, status)
+function oncartSaveComplete(response, status)
 	{ 
 	if (status == "success") 
 	 { 
@@ -124,11 +133,11 @@ function onItemSaveComplete(response, status)
 	 $("#alertError").text("Unknown error while saving.."); 
 	 $("#alertError").show(); 
 	 } 
-	 $("#hidItemIDSave").val(""); 
-	 $("#formItem")[0].reset(); 
+	 $("#hidprodnumSave").val(""); 
+	 $("#formcart")[0].reset(); 
 }
 
-function onItemDeleteComplete(response, status)
+function oncartDeleteComplete(response, status)
 	{ 
 	if (status == "success") 
 	 { 

@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ItemAPI
  */
-@WebServlet("/ItemAPI")
-public class ItemAPI extends HttpServlet {
+@WebServlet("/cartAPI")
+public class cartAPI extends HttpServlet {
 	
 	
-	Item itemObj =new Item();
+	cart cartObj =new cart();
        
     
-    public ItemAPI() {
+    public cartAPI() {
         super();
        
     }
@@ -33,10 +33,10 @@ public class ItemAPI extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String output = itemObj.insertItem(request.getParameter("itemCode"), 
-				 request.getParameter("itemName"), 
-				request.getParameter("itemPrice"), 
-				request.getParameter("itemDesc")); 
+		String output = cartObj.insertcart(request.getParameter("prodid"), 
+				 request.getParameter("prodname"), 
+				request.getParameter("prodqty"), 
+				request.getParameter("prodprice")); 
 				response.getWriter().write(output); 
 				
 				
@@ -45,18 +45,18 @@ public class ItemAPI extends HttpServlet {
 	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request); 
-		 String output = itemObj.updateItem(paras.get("hidItemIDSave").toString(), 
-		 paras.get("itemCode").toString(), 
-		 paras.get("itemName").toString(), 
-		paras.get("itemPrice").toString(), 
-		paras.get("itemDesc").toString()); 
+		 String output = cartObj.updatecart(paras.get("hidprodnumSave").toString(), 
+		 paras.get("prodid").toString(), 
+		 paras.get("prodname").toString(), 
+		paras.get("prodqty").toString(), 
+		paras.get("prodprice").toString()); 
 		response.getWriter().write(output); 
 	}
 
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request); 
-		 String output = itemObj.deleteItem(paras.get("itemID").toString()); 
+		 String output = cartObj.deletecart(paras.get("prodnum").toString()); 
 		response.getWriter().write(output);
 	}
 	
@@ -86,3 +86,4 @@ public class ItemAPI extends HttpServlet {
 	
 
 }
+
