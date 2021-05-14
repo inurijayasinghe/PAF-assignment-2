@@ -40,7 +40,7 @@ public class cart {
 		}
 		
 		// create a prepared statement
-		String query = "insert into shhoppingcart (prodnum, prodid, prodname, prodqty, prodprice)"
+		String query = "insert into shoppingcart (prodnum, prodid, prodname, prodqty, prodprice)"
 				 + " values (?, ?, ?, ?, ?)"; 
 		PreparedStatement preparedStmt = con.prepareStatement(query); 
 		// binding values
